@@ -20,7 +20,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/password-recovery/password-recovery.module').then( m => m.PasswordRecoveryPageModule)
   },
   {
-    path: 'success-login',
+    path: 'success-login/:nombre',
     loadChildren: () => import('./pages/success-login/success-login.module').then( m => m.SuccessLoginPageModule)
   },
 ];

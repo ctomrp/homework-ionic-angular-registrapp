@@ -1,3 +1,4 @@
+import { User } from './../../interfaces/user';
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,6 +11,22 @@ import { MessageComponent } from '../../components/message/message.component';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
+  user: string = '';
+  password: string = '';
+  alumnos: User[] = [
+    { id: 1, name: 'Bastian', password: 'Bastian' },
+    { id: 2, name: 'Cristian', password: 'Cristian' },
+    { id: 3, name: 'Luis', password: 'Luis' },
+  ];
+  usuarioCoincide() {
+    for (var i = 0; i < this.alumnos.length; i++) {
+      if (this.alumnos[i].name === this.user) {
+        console.log('entró');
+        return this.user;
+      }
+    }
+    return false;
+  }
 
   @ViewChild(MessageComponent) messageComponent!: MessageComponent;
 
@@ -23,25 +40,26 @@ export class LoginPage {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private loadingCtrl: LoadingController,
-    ) { }
+    private loadingCtrl: LoadingController
+  ) {}
 
-  isFieldInvalid(field: string){
+  isFieldInvalid(field: string) {
     const control = this.loginForm.get(field);
-    return control?.invalid && (control.dirty || control.touched || this.isSubmitted);
+    return (
+      control?.invalid && (control.dirty || control.touched || this.isSubmitted)
+    );
   }
 
   onSubmit(): void {
     this.isSubmitted = true;
-    if(this.loginForm.invalid){
-      console.log('mal');      
-    }else{
+    if (this.loginForm.invalid) {
+      console.log('mal');
+    } else {
       console.log('bien');
-      
     }
   }
 
-  doCancel(){
+  doCancel() {
     this.router.navigate(['/welcome']);
   }
 
@@ -55,16 +73,20 @@ export class LoginPage {
       this.messageComponent.header = 'Atención';
       this.messageComponent.message = 'Debe completar todos los campos.';
       this.messageComponent.setOpen(true);
-    } else {
+    } else if (this.usuarioCoincide() !== false) {
+        /* 
       const loading = await this.loadingCtrl.create({
         message: 'Conectando...',
         duration: 3000,
       });
 
       loading.present();
-      await loading.onDidDismiss();
-      this.router.navigate(['/success-login']);
+      await loading.onDidDismiss(); */
+      this.router.navigate(['/success-login', this.user]);
+    }else{
+      this.messageComponent.header = 'Error';
+      this.messageComponent.message = 'Usuario y/o contraseña incorrecta.';
+      this.messageComponent.setOpen(true);
     }
   }
-
 }
