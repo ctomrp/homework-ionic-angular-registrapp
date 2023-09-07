@@ -19,7 +19,7 @@ export class LoginPage {
   usuarioCoincide() {
     for (var i = 0; i < this.alumnos.length; i++) {
       if (
-        this.alumnos[i].name.toLocaleLowerCase() === this.loginForm.get('username')?.value?.toLocaleLowerCase() &&
+        this.alumnos[i].name.toLocaleLowerCase() === this.loginForm.get('username')?.value?.toLocaleLowerCase().trim() &&
         this.alumnos[i].password === this.loginForm.get('password')?.value
       ) {
         console.log('entró');
