@@ -1,0 +1,7 @@
+<ion-alert
+  [isOpen]="isAlertOpen"
+  header="{{header}}"
+  message="{{message}}"
+  [buttons]="alertButtons"
+  (didDismiss)="setOpen(false)"
+></ion-alert>

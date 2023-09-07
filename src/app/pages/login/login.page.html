@@ -1,0 +1,45 @@
+<app-title [title]="'Ingresar'"></app-title>
+
+<ion-content [fullscreen]="true">
+    <div class="body">
+        <h1>Ingresar</h1>    
+        <form action="" class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="field">
+                <ion-input 
+                    label="Usuario" 
+                    labelPlacement="floating" 
+                    placeholder="Ingrese su usuario" 
+                    formControlName="username" 
+                    [class.invalid]="isFieldInvalid('username')">
+                </ion-input>
+            </div>
+            <div class="field">
+                <ion-input 
+                    label="Contraseña" 
+                    labelPlacement="floating" 
+                    placeholder="Ingrese su contraseña" 
+                    type="password" 
+                    formControlName="password" 
+                    [class.invalid]="isFieldInvalid('password')">
+                </ion-input>
+            </div>
+            <br>    
+            <div class="btnGroup">
+                <div>
+                    <app-button [type]="'submit'" [label]="'ingresar'" (onClick)="doEnter()"></app-button>
+                </div>
+                <div>
+                    <app-button [type]="'reset'" [style]="'cancel'" [label]="'cancelar'" (onClick)="doCancel()"></app-button>
+                </div>
+            </div>
+        </form>
+        <span class="recovery">
+            ¿Olvidaste tu contraseña?<br>
+            <div class="recover-link">
+              <a routerLink="/password-recovery">Recupérala aquí</a>
+            </div>
+          </span>
+    </div>
+</ion-content>
+<app-message></app-message>
+<app-footer></app-footer>

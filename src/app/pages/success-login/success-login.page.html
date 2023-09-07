@@ -1,0 +1,16 @@
+<app-title [title]="'Bienvenido'"></app-title>
+
+<ion-content [fullscreen]="true">
+    <div class="body">
+        <h1>Bienvenido @nombre del usuario aquí@</h1>
+        <div class="btnGroup">
+          <div>
+              <app-button [type]="'button'" [label]="'capturar qr'" (onClick)="doEnter()"></app-button>
+          </div>
+          <div>
+              <app-button [type]="'button'" [style]="'cancel'" [label]="'cancelar'" (onClick)="doCancel()"></app-button>
+          </div>
+        </div>
+    </div>
+</ion-content>
+<app-footer></app-footer>
