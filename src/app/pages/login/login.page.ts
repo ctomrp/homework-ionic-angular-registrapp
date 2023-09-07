@@ -21,7 +21,7 @@ export class LoginPage {
   usuarioCoincide() {
     for (var i = 0; i < this.alumnos.length; i++) {
       if (
-        this.alumnos[i].name === this.user &&
+        this.alumnos[i].name.toLocaleLowerCase() === this.user.toLocaleLowerCase() &&
         this.alumnos[i].password === this.password
       ) {
         console.log('entró');
@@ -77,14 +77,13 @@ export class LoginPage {
       this.messageComponent.message = 'Debe completar todos los campos.';
       this.messageComponent.setOpen(true);
     } else if (this.usuarioCoincide() !== false) {
-      /* 
       const loading = await this.loadingCtrl.create({
         message: 'Conectando...',
         duration: 3000,
       });
 
       loading.present();
-      await loading.onDidDismiss(); */
+      await loading.onDidDismiss();
       this.router.navigate(['/success-login', this.user]);
     } else {
       this.messageComponent.header = 'Error';
