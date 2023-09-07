@@ -11,8 +11,6 @@ import { MessageComponent } from '../../components/message/message.component';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-  user: string = '';
-  password: string = '';
   alumnos: User[] = [
     { id: 1, name: 'Bastian', password: 'Bastian' },
     { id: 2, name: 'Cristian', password: 'Cristian' },
@@ -21,11 +19,11 @@ export class LoginPage {
   usuarioCoincide() {
     for (var i = 0; i < this.alumnos.length; i++) {
       if (
-        this.alumnos[i].name.toLocaleLowerCase() === this.user.toLocaleLowerCase() &&
-        this.alumnos[i].password === this.password
+        this.alumnos[i].name.toLocaleLowerCase() === this.loginForm.get('username')?.value?.toLocaleLowerCase() &&
+        this.alumnos[i].password === this.loginForm.get('password')?.value
       ) {
         console.log('entró');
-        return this.user;
+        return this.loginForm.get('username')?.value;
       }
     }
     return false;
@@ -84,7 +82,7 @@ export class LoginPage {
 
       loading.present();
       await loading.onDidDismiss();
-      this.router.navigate(['/success-login', this.user]);
+      this.router.navigate(['/success-login', this.loginForm.get('username')?.value]);
     } else {
       this.messageComponent.header = 'Error';
       this.messageComponent.message = 'Usuario y/o contraseña incorrecta.';

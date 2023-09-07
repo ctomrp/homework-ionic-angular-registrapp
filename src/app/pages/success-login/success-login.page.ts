@@ -16,7 +16,7 @@ export class SuccessLoginPage implements OnInit {
 
   ngOnInit() {
     this.activateRoute.paramMap.subscribe(params => {
-      this.alumno = params.get('nombre'); // aca va el parametro de la ruta.
+      this.alumno = params.get('nombre');
     });
   }
 
