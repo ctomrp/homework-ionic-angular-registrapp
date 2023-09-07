@@ -20,7 +20,10 @@ export class LoginPage {
   ];
   usuarioCoincide() {
     for (var i = 0; i < this.alumnos.length; i++) {
-      if (this.alumnos[i].name === this.user) {
+      if (
+        this.alumnos[i].name === this.user &&
+        this.alumnos[i].password === this.password
+      ) {
         console.log('entró');
         return this.user;
       }
@@ -74,7 +77,7 @@ export class LoginPage {
       this.messageComponent.message = 'Debe completar todos los campos.';
       this.messageComponent.setOpen(true);
     } else if (this.usuarioCoincide() !== false) {
-        /* 
+      /* 
       const loading = await this.loadingCtrl.create({
         message: 'Conectando...',
         duration: 3000,
@@ -83,7 +86,7 @@ export class LoginPage {
       loading.present();
       await loading.onDidDismiss(); */
       this.router.navigate(['/success-login', this.user]);
-    }else{
+    } else {
       this.messageComponent.header = 'Error';
       this.messageComponent.message = 'Usuario y/o contraseña incorrecta.';
       this.messageComponent.setOpen(true);
