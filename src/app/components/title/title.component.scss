@@ -3,6 +3,7 @@ ion-title {
     animation: slideTitle 3s linear infinite;
     white-space: nowrap;
     text-overflow: ellipsis;
+    z-index: 1;
   }
   
   @keyframes slideTitle {
@@ -13,3 +14,11 @@ ion-title {
       transform: translateX(-100%);
     }
   }
+
+ion-img{
+  width: 42px;
+  height: auto;
+  box-sizing: border-box;
+  margin-left: 0;
+  z-index: 2;
+}

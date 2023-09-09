@@ -22,7 +22,6 @@ export class LoginPage {
         this.alumnos[i].name.toLocaleLowerCase() === this.loginForm.get('username')?.value?.toLocaleLowerCase().trim() &&
         this.alumnos[i].password === this.loginForm.get('password')?.value
       ) {
-        console.log('entró');
         return this.loginForm.get('username')?.value;
       }
     }
@@ -53,11 +52,6 @@ export class LoginPage {
 
   onSubmit(): void {
     this.isSubmitted = true;
-    if (this.loginForm.invalid) {
-      console.log('mal');
-    } else {
-      console.log('bien');
-    }
   }
 
   doCancel() {
