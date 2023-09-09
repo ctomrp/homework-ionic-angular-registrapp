@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MessageComponent } from '../../components/message/message.component';
 
 @Component({
   selector: 'app-success-login',
@@ -8,11 +9,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SuccessLoginPage implements OnInit {
 
+  @ViewChild(MessageComponent) messageComponent!: MessageComponent;
+  
   alumno: string | null = null;
   constructor(
     private router: Router,
     private activateRoute: ActivatedRoute
   ) { }
+
+
 
   ngOnInit() {
     this.activateRoute.paramMap.subscribe(params => {
@@ -21,7 +26,9 @@ export class SuccessLoginPage implements OnInit {
   }
 
   doEnter(){
-    console.log('Abriendo la cámara');
+    this.messageComponent.header = 'Estamos trabajando para ud.';
+    this.messageComponent.message = 'Módulo en construcción.';
+    this.messageComponent.setOpen(true);
   }
 
   doCancel(){
