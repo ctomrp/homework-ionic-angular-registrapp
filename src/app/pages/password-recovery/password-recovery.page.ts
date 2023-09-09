@@ -31,10 +31,8 @@ export class PasswordRecoveryPage {
   onSubmit(): void {
     this.isSubmitted = true;
     if(this.passwordRecoveryForm.invalid){
-      console.log('mal');      
     }else{
-      console.log('bien');
-      
+      this.router.navigate(['/login']);
     }
   }
 
@@ -49,8 +47,9 @@ export class PasswordRecoveryPage {
       this.messageComponent.message = 'Ingrese su correo electrónico.';
       this.messageComponent.setOpen(true);
     } else {
-      console.log('Enviando correo');
-      this.router.navigate(['/login']);
+      this.messageComponent.header = 'Correo enviado';
+      this.messageComponent.message = 'Por favor revise su correo para recuperar sus credenciales.';
+      this.messageComponent.setOpen(true);
     }
   }
 
