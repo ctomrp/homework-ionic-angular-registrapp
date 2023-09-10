@@ -4,6 +4,7 @@ import { ButtonComponent } from '../components/button/button.component';
 import { FooterComponent } from '../components/footer/footer.component';
 import { MessageComponent } from '../components/message/message.component';
 import { TitleComponent } from '../components/title/title.component';
+import { TitleImageComponent } from '../components/title-image/title-image.component';
 
 
 
@@ -13,6 +14,7 @@ import { TitleComponent } from '../components/title/title.component';
     FooterComponent,
     MessageComponent,
     TitleComponent,
+    TitleImageComponent,
   ],
   imports: [
     IonicModule,
@@ -22,6 +24,7 @@ import { TitleComponent } from '../components/title/title.component';
     FooterComponent,
     MessageComponent,
     TitleComponent,
+    TitleImageComponent,
   ]
 })
 export class SharedModule { }
