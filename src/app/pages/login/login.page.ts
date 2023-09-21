@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { MessageComponent } from '../../components/message/message.component';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-login',
@@ -11,23 +12,6 @@ import { MessageComponent } from '../../components/message/message.component';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-  alumnos: User[] = [
-    { id: 1, name: 'Bastian', password: 'Bastian' },
-    { id: 2, name: 'Cristian', password: 'Cristian' },
-    { id: 3, name: 'Luis', password: 'Luis' },
-  ];
-  usuarioCoincide() {
-    for (var i = 0; i < this.alumnos.length; i++) {
-      if (
-        this.alumnos[i].name.toLocaleLowerCase() === this.loginForm.get('username')?.value?.toLocaleLowerCase().trim() &&
-        this.alumnos[i].password === this.loginForm.get('password')?.value
-      ) {
-        return this.loginForm.get('username')?.value;
-      }
-    }
-    return false;
-  }
-
   @ViewChild(MessageComponent) messageComponent!: MessageComponent;
 
   loginForm = this.fb.group({
@@ -40,7 +24,8 @@ export class LoginPage {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private afAuth: AngularFireAuth
   ) {}
 
   isFieldInvalid(field: string) {
@@ -64,23 +49,37 @@ export class LoginPage {
   }
 
   async doEnter() {
-    if (this.loginForm.invalid) {
-      this.messageComponent.header = 'Atención';
-      this.messageComponent.message = 'Debe completar todos los campos.';
-      this.messageComponent.setOpen(true);
-    } else if (this.usuarioCoincide() !== false) {
-      const loading = await this.loadingCtrl.create({
-        message: 'Conectando...',
-        duration: 3000,
-      });
+    try {
+      if (this.loginForm.invalid) {
+        this.messageComponent.header = 'Atención';
+        this.messageComponent.message = 'Debe completar todos los campos.';
+        this.messageComponent.setOpen(true);
+      } else {
+        const username = this.loginForm.get('username')?.value;
+        const password = this.loginForm.get('password')?.value;
 
-      loading.present();
-      await loading.onDidDismiss();
-      this.router.navigate(['/success-login', this.loginForm.get('username')?.value]);
-    } else {
-      this.messageComponent.header = 'Error';
-      this.messageComponent.message = 'Usuario y/o contraseña incorrecta.';
-      this.messageComponent.setOpen(true);
+        const loading = await this.loadingCtrl.create({
+          message: 'Conectando...',
+        });
+        await loading.present();
+
+        try {
+          const userCredential = await this.afAuth.signInWithEmailAndPassword(
+            username!,
+            password!
+          );
+
+          this.router.navigate(['/success-login', username]);
+          await loading.dismiss();
+        } catch (error) {
+          this.messageComponent.header = 'Error';
+          this.messageComponent.message = 'Usuario y/o contraseña incorrecta.';
+          this.messageComponent.setOpen(true);
+          await loading.dismiss();
+        }
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 }
