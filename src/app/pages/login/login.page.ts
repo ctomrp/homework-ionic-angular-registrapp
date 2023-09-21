@@ -64,22 +64,28 @@ export class LoginPage {
         await loading.present();
 
         try {
-          const userCredential = await this.afAuth.signInWithEmailAndPassword(
-            username!,
-            password!
-          );
-
+          await this.afAuth.signInWithEmailAndPassword(username!, password!);
           this.router.navigate(['/success-login', username]);
           await loading.dismiss();
         } catch (error) {
           this.messageComponent.header = 'Error';
-          this.messageComponent.message = 'Usuario y/o contraseña incorrecta.';
+
+          if (error.code === 'auth/network-request-failed') {
+            this.messageComponent.message =
+              'Error de conexión, por favor intente más tarde.';
+          } else {
+            this.messageComponent.message =
+              'Usuario y/o contraseña incorrecta.';
+          }
           this.messageComponent.setOpen(true);
           await loading.dismiss();
         }
       }
     } catch (error) {
-      console.error(error);
+      this.messageComponent.header = 'Error';
+      this.messageComponent.message =
+        'Ocurrió un error desconocido, por favor intente más tarde.';
+      this.messageComponent.setOpen(true);
     }
   }
 }
