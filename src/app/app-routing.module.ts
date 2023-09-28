@@ -23,6 +23,11 @@ const routes: Routes = [
     path: 'success-login/:nombre',
     loadChildren: () => import('./pages/success-login/success-login.module').then( m => m.SuccessLoginPageModule)
   },
+  {
+    path: 'rick-and-morty',
+    loadChildren: () => import('./pages/rick-and-morty/rick-and-morty.module').then( m => m.RickAndMortyPageModule),
+  },
+
 ];
 
 @NgModule({

@@ -58,6 +58,10 @@ export class SuccessLoginPage implements OnInit {
     }
   }
 
+  doEnterApi(){
+    this.router.navigate(['/rick-and-morty']);
+  }
+
   doCancel(){
     this.router.navigate(['/welcome']);
   }
