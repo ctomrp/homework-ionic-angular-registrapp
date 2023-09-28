@@ -15,6 +15,7 @@ export class SuccessLoginPage implements OnInit {
   @ViewChild(MessageComponent) messageComponent!: MessageComponent;
   
   alumno: string | null = null;
+  content_visibility = '';
   constructor(
     private router: Router,
     private activateRoute: ActivatedRoute,
@@ -28,34 +29,47 @@ export class SuccessLoginPage implements OnInit {
     });
   }
 
-  async doEnter(){
-    // this.messageComponent.header = 'Estamos trabajando para ud.';
-    // this.messageComponent.message = 'Módulo en construcción.';
-    // this.messageComponent.setOpen(true);
-    
+  async doEnter() {
     try {
       const permission = await this.CheckPermission();
-      if(!permission){
+      if (!permission) {
         return;
-      }else{
-        await BarcodeScanner.hideBackground();
-        document.querySelector('body').classList.add('scanner-active');
-        const result = await BarcodeScanner.startScan();
-        const asistenciaObj: Asistencia = {
-          date : new Date(),
-          alumno: this.alumno,
-          asignatura: result.content
-        }
-        this._asistenciaService.guardarAsistencia(asistenciaObj).then(()=>{
-          console.log(asistenciaObj)
-        },error=> {
-          console.log(error);
-        })
       }
+  
+      await BarcodeScanner.hideBackground();
+      document.querySelector('body').classList.add('scanner-active');
+      this.content_visibility = 'hidden';
+  
+      const result = await BarcodeScanner.startScan();
+  
+      BarcodeScanner.showBackground();
+      document.querySelector('body').classList.remove('scanner-active');
+      this.content_visibility = '';
+  
+      const asistenciaObj: Asistencia = {
+        date: new Date(),
+        alumno: this.alumno,
+        asignatura: result.content
+      };
+  
+      this._asistenciaService.guardarAsistencia(asistenciaObj)
+        .then(() => {
+          console.log(asistenciaObj);
+          this.showSuccessMessage();
+        })
+        .catch(error => {
+          console.log(error);
+        });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       this.stopScan();
     }
+  }
+  
+  showSuccessMessage() {
+    this.messageComponent.header = 'Registro de Asistencia';
+    this.messageComponent.message = '¡La asistencia ha sido registrada exitosamente!';
+    this.messageComponent.setOpen(true);
   }
 
   doCancel(){
@@ -78,5 +92,10 @@ async CheckPermission(){
 stopScan(){
   BarcodeScanner.showBackground();
   BarcodeScanner.stopScan();
-}     
+  document.querySelector('body').classList.remove('scanner-active');
+  this.content_visibility = '';
+} 
+ngOnDestroy(): void {
+  this.stopScan();
+}    
 }
