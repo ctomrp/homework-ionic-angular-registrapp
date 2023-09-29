@@ -16,7 +16,6 @@ export class SuccessLoginPage implements OnInit {
   @ViewChild(MessageComponent) messageComponent!: MessageComponent;
   
   alumno: string | null = null;
-  content_visibility = '';
   scanActive = false;
 
   constructor(
@@ -40,15 +39,12 @@ export class SuccessLoginPage implements OnInit {
         return;
       }
       this.scanActive = true;
-      // await BarcodeScanner.hideBackground();
       document.querySelector('body').classList.add('scanner-active');
-      // this.content_visibility = 'hidden';
   
       const result = await BarcodeScanner.startScan();
       this.scanActive= false;
-      // BarcodeScanner.showBackground();
+      
       document.querySelector('body').classList.remove('scanner-active');
-      // this.content_visibility = '';
   
       const asistenciaObj: Asistencia = {
         date: new Date(),
@@ -99,11 +95,9 @@ async CheckPermission(){
   }
 }
 stopScan(){
-  // BarcodeScanner.showBackground();
+  
   BarcodeScanner.stopScan();
   this.scanActive= false;
-  // document.querySelector('body').classList.remove('scanner-active');
-  // this.content_visibility = '';
 } 
 ngOnDestroy(): void {
   this.stopScan();
