@@ -16,6 +16,8 @@ export class SuccessLoginPage implements OnInit {
   
   alumno: string | null = null;
   content_visibility = '';
+  scanActive = false;
+
   constructor(
     private router: Router,
     private activateRoute: ActivatedRoute,
@@ -35,16 +37,16 @@ export class SuccessLoginPage implements OnInit {
       if (!permission) {
         return;
       }
-  
-      await BarcodeScanner.hideBackground();
+      this.scanActive = true;
+      // await BarcodeScanner.hideBackground();
       document.querySelector('body').classList.add('scanner-active');
-      this.content_visibility = 'hidden';
+      // this.content_visibility = 'hidden';
   
       const result = await BarcodeScanner.startScan();
-  
-      BarcodeScanner.showBackground();
+      this.scanActive= false;
+      // BarcodeScanner.showBackground();
       document.querySelector('body').classList.remove('scanner-active');
-      this.content_visibility = '';
+      // this.content_visibility = '';
   
       const asistenciaObj: Asistencia = {
         date: new Date(),
@@ -90,12 +92,13 @@ async CheckPermission(){
   }
 }
 stopScan(){
-  BarcodeScanner.showBackground();
+  // BarcodeScanner.showBackground();
   BarcodeScanner.stopScan();
-  document.querySelector('body').classList.remove('scanner-active');
-  this.content_visibility = '';
+  this.scanActive= false;
+  // document.querySelector('body').classList.remove('scanner-active');
+  // this.content_visibility = '';
 } 
 ngOnDestroy(): void {
   this.stopScan();
-}    
+} 
 }

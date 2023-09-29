@@ -1,8 +1,8 @@
 <app-title [title]="'Bienvenido'"></app-title>
 
-<ion-content [fullscreen]="true" [style.visibility]="content_visibility">
-    <app-title-image />
-    <div class="body">
+<ion-content [fullscreen]="true">
+    <app-title-image *ngIf="!scanActive"/>
+    <div class="body"*ngIf="!scanActive">
         <h1>Bienvenido {{alumno}}</h1>
         <div class="btnGroup">
           <div>
@@ -13,6 +13,10 @@
           </div>
         </div>
     </div>
+    <div class="scan-box" *ngIf="scanActive"></div>
+    <div class="btnCancel">
+        <app-button [type]="'button'" [style]="'cancel'" [label]="'Cancelar'" (onClick)="stopScan()" *ngIf="scanActive"></app-button>
+    </div>    
 </ion-content>
 <app-message></app-message>
 <app-footer></app-footer>
