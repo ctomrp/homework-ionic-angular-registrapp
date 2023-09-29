@@ -1,0 +1,16 @@
+ion-item {
+    --padding-start: 0;
+  }
+
+app-button{
+  position: fixed;
+  bottom: 0;
+  margin: 32px;
+  z-index: 2;
+}
+
+.btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}

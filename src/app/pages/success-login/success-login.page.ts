@@ -4,6 +4,7 @@ import { MessageComponent } from '../../components/message/message.component';
 import { AsistenciaService } from 'src/app/services/asistencia.service';
 import { Asistencia } from '../../interfaces/asistencia';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-success-login',
@@ -22,6 +23,7 @@ export class SuccessLoginPage implements OnInit {
     private router: Router,
     private activateRoute: ActivatedRoute,
     private _asistenciaService: AsistenciaService,
+    private loginService: LoginService,
   ) { }
 
 
@@ -74,7 +76,12 @@ export class SuccessLoginPage implements OnInit {
     this.messageComponent.setOpen(true);
   }
 
+  doEnterApi(){
+    this.router.navigate(['/rick-and-morty']);
+  }
+
   doCancel(){
+    this.loginService.signOut();
     this.router.navigate(['/welcome']);
   }
 

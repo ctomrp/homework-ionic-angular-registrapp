@@ -25,6 +25,7 @@ import { TitleImageComponent } from '../components/title-image/title-image.compo
     MessageComponent,
     TitleComponent,
     TitleImageComponent,
+  
   ]
 })
 export class SharedModule { }
