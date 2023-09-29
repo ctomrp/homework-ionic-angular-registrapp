@@ -1,10 +1,10 @@
-import { User } from './../../interfaces/user';
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { MessageComponent } from '../../components/message/message.component';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +25,8 @@ export class LoginPage {
     private fb: FormBuilder,
     private router: Router,
     private loadingCtrl: LoadingController,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private loginService: LoginService
   ) {}
 
   isFieldInvalid(field: string) {
@@ -35,9 +36,11 @@ export class LoginPage {
     );
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     this.isSubmitted = true;
+    await this.doEnter();
   }
+  
 
   doCancel() {
     this.router.navigate(['/welcome']);
@@ -55,7 +58,7 @@ export class LoginPage {
         this.messageComponent.message = 'Debe completar todos los campos.';
         this.messageComponent.setOpen(true);
       } else {
-        const username = this.loginForm.get('username')?.value;
+        const username = this.loginForm.get('username')?.value.trim();
         const password = this.loginForm.get('password')?.value;
 
         const loading = await this.loadingCtrl.create({
@@ -63,23 +66,18 @@ export class LoginPage {
         });
         await loading.present();
 
-        try {
-          await this.afAuth.signInWithEmailAndPassword(username!, password!);
-          this.router.navigate(['/success-login', username]);
-          await loading.dismiss();
-        } catch (error) {
-          this.messageComponent.header = 'Error';
 
-          if (error.code === 'auth/network-request-failed') {
-            this.messageComponent.message =
-              'Error de conexión, por favor intente más tarde.';
-          } else {
-            this.messageComponent.message =
-              'Usuario y/o contraseña incorrecta.';
-          }
+        const errorMessage = await this.loginService.signIn(username, password);
+
+        if (!errorMessage) {
+          this.router.navigate(['/success-login', username]);
+        } else {
+          this.messageComponent.header = 'Error';
+          this.messageComponent.message = errorMessage;
           this.messageComponent.setOpen(true);
-          await loading.dismiss();
         }
+
+        await loading.dismiss();
       }
     } catch (error) {
       this.messageComponent.header = 'Error';

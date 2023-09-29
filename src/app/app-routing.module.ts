@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -21,13 +22,14 @@ const routes: Routes = [
   },
   {
     path: 'success-login/:nombre',
-    loadChildren: () => import('./pages/success-login/success-login.module').then( m => m.SuccessLoginPageModule)
+    loadChildren: () => import('./pages/success-login/success-login.module').then( m => m.SuccessLoginPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'rick-and-morty',
     loadChildren: () => import('./pages/rick-and-morty/rick-and-morty.module').then( m => m.RickAndMortyPageModule),
+    canActivate: [AuthGuard]
   },
-
 ];
 
 @NgModule({

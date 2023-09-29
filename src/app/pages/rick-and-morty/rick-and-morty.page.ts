@@ -10,6 +10,7 @@ import { LoadingController, NavController } from '@ionic/angular';
 export class RickAndMortyPage implements OnInit {
 
   characters: any;
+
   constructor(
     private ramService: RickAndMortyService,
     private navCtrl: NavController,
@@ -24,14 +25,16 @@ export class RickAndMortyPage implements OnInit {
     const loading = await this.loadingCtrl.create({
       message: 'Conectando...',
     });
-    await loading.present();
 
-    this.ramService.getCharacters().subscribe((data: any) => {
-      this.characters = data.results;
-    })
+    try {
+      await loading.present();
 
-    await loading.dismiss();
-
+      this.ramService.getCharacters().subscribe((data: any) => {
+        this.characters = data.results;
+      });
+    } finally {
+      await loading.dismiss();
+    }
   }
   
   doBack(){
