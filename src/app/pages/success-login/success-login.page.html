@@ -16,6 +16,7 @@
           </div>
         </div>
     </div>
+    <h1 *ngIf="scanActive" class="qr-title">Enfoque el código QR</h1>
     <div class="scan-box" *ngIf="scanActive"></div>
     <div class="btnCancel">
         <app-button [type]="'button'" [style]="'cancel'" [label]="'Cancelar'" (onClick)="stopScan()" *ngIf="scanActive"></app-button>
