@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageComponent } from 'src/app/components/message/message.component';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-password-recovery',
@@ -20,7 +21,8 @@ export class PasswordRecoveryPage {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router  
+    private router: Router,
+    private loginService: LoginService,
   ) { }
 
   isFieldInvalid(field: string){
@@ -42,13 +44,33 @@ export class PasswordRecoveryPage {
   }
 
   async doEnter() {
-    if (this.passwordRecoveryForm.invalid) {
-      this.messageComponent.header = 'Atención';
-      this.messageComponent.message = 'Ingrese su correo electrónico.';
-      this.messageComponent.setOpen(true);
-    } else {
-      this.messageComponent.header = 'Correo enviado';
-      this.messageComponent.message = 'Por favor revise su correo para recuperar sus credenciales.';
+    try {
+      if (this.passwordRecoveryForm.invalid) {
+        this.messageComponent.header = 'Atención';
+        this.messageComponent.message = 'Debe completar todos los campos.';
+        this.messageComponent.setOpen(true);
+      } else {
+        const email = this.passwordRecoveryForm.get('email')?.value.trim();
+
+        this.messageComponent.header = 'Atención';
+        this.messageComponent.message = 'Se le enviará un enlace de recuperación a su correo';
+        this.messageComponent.setOpen(true);
+      
+        const errorMessage = await this.loginService.recoverPassword(email);
+
+        if (!errorMessage) {
+          this.router.navigate(['/login']);
+        } else {
+          this.messageComponent.header = 'Error';
+          this.messageComponent.message = errorMessage;
+          this.messageComponent.setOpen(true);
+        }
+
+      }
+    } catch (error) {
+      this.messageComponent.header = 'Error';
+      this.messageComponent.message =
+        'Ocurrió un error desconocido, por favor intente más tarde.';
       this.messageComponent.setOpen(true);
     }
   }

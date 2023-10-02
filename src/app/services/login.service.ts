@@ -37,4 +37,14 @@ export class LoginService {
       return 'Error al cerrar sesión.';
     }
   }
+
+  async recoverPassword(password: string) {
+    try {
+      await this.afAuth.sendPasswordResetEmail(password);
+      return null;
+    } catch (error) {
+      return 'Error al recuperar la contraseña.';
+    }
+  }
+
 }
