@@ -49,7 +49,8 @@ export class SuccessLoginPage implements OnInit {
       const asistenciaObj: Asistencia = {
         date: new Date(),
         alumno: this.alumno,
-        asignatura: result.content
+        asignatura: result.content.slice(0,-4),
+        seccion: result.content.slice(-4)
       };
   
       this._asistenciaService.guardarAsistencia(asistenciaObj)
