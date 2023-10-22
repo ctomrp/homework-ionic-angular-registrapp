@@ -3,4 +3,5 @@ export interface Asistencia{
     date:  Date;
     alumno: string;
     asignatura: string;
+    seccion: string;
 }

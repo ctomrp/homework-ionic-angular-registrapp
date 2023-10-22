@@ -8,7 +8,8 @@ import { map } from 'rxjs/operators';
 })
 export class LoginService {
 
-  constructor(private afAuth: AngularFireAuth) { }
+  //se cambio el constructor a publico para utilizarlo en spec
+  constructor(public afAuth: AngularFireAuth) { }
 
   getAuthState(): Observable<boolean> {
     return this.afAuth.authState.pipe(
