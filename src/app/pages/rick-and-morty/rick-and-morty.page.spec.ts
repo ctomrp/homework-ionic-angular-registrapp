@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RickAndMortyPage } from './rick-and-morty.page';
 import { LoadingController, NavController } from '@ionic/angular';
+import { RickAndMortyPage } from './rick-and-morty.page';
 import { RickAndMortyService } from 'src/app/services/rick-and-morty.service';
-import { of } from 'rxjs';
 
 describe('RickAndMortyPage', () => {
   let component: RickAndMortyPage;
@@ -13,7 +12,11 @@ describe('RickAndMortyPage', () => {
 
   beforeEach(() => {
     navCtrl = jasmine.createSpyObj('NavController', ['pop']);
-    loadingCtrl = jasmine.createSpyObj('LoadingController', ['create', 'present', 'dismiss']);
+    loadingCtrl = jasmine.createSpyObj('LoadingController', [
+      'create',
+      'present',
+      'dismiss',
+    ]);
     ramService = jasmine.createSpyObj('RickAndMortyService', ['getCharacters']);
 
     TestBed.configureTestingModule({

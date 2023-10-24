@@ -1,6 +1,6 @@
+import { Animation, AnimationController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Animation, AnimationController } from '@ionic/angular';
 
 @Component({
   selector: 'app-welcome',
@@ -8,27 +8,27 @@ import { Animation, AnimationController } from '@ionic/angular';
   styleUrls: ['./welcome.page.scss'],
 })
 export class WelcomePage implements OnInit {
-
   constructor(
     private animationCtrl: AnimationController,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.animateImage()
+    this.animateImage();
   }
 
-  async animateImage(){
-    const animation: Animation = this.animationCtrl.create()
-      .addElement(document.querySelectorAll(".registrapp-img"))
+  async animateImage() {
+    const animation: Animation = this.animationCtrl
+      .create()
+      .addElement(document.querySelectorAll('.registrapp-img'))
       .duration(950)
       .iterations(Infinity)
       .direction('alternate')
-      .fromTo('scale','1.105','1');
+      .fromTo('scale', '1.105', '1');
     await animation.play();
   }
 
-  doEnter(){
+  doEnter() {
     this.router.navigate(['/login']);
   }
 }

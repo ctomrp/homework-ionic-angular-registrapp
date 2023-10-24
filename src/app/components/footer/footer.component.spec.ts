@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-
 import { FooterComponent } from './footer.component';
+import { IonicModule } from '@ionic/angular';
 
 describe('FooterComponent', () => {
   let component: FooterComponent;

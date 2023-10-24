@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { MessageComponent } from 'src/app/components/message/message.component';
 import { LoginService } from 'src/app/services/login.service';
+import { MessageComponent } from 'src/app/components/message/message.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-password-recovery',
@@ -10,7 +10,6 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./password-recovery.page.scss'],
 })
 export class PasswordRecoveryPage {
-
   @ViewChild(MessageComponent) messageComponent!: MessageComponent;
 
   passwordRecoveryForm = this.fb.group({
@@ -22,18 +21,20 @@ export class PasswordRecoveryPage {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private loginService: LoginService,
-  ) { }
+    private loginService: LoginService
+  ) {}
 
-  isFieldInvalid(field: string){
+  isFieldInvalid(field: string) {
     const control = this.passwordRecoveryForm.get(field);
-    return control?.invalid && (control.dirty || control.touched || this.isSubmitted);
+    return (
+      control?.invalid && (control.dirty || control.touched || this.isSubmitted)
+    );
   }
 
   onSubmit(): void {
     this.isSubmitted = true;
-    if(this.passwordRecoveryForm.invalid){
-    }else{
+    if (this.passwordRecoveryForm.invalid) {
+    } else {
       this.router.navigate(['/login']);
     }
   }
@@ -53,9 +54,10 @@ export class PasswordRecoveryPage {
         const email = this.passwordRecoveryForm.get('email')?.value.trim();
 
         this.messageComponent.header = 'Atención';
-        this.messageComponent.message = 'Se le enviará un enlace de recuperación a su correo';
+        this.messageComponent.message =
+          'Se le enviará un enlace de recuperación a su correo';
         this.messageComponent.setOpen(true);
-      
+
         const errorMessage = await this.loginService.recoverPassword(email);
 
         if (!errorMessage) {
@@ -65,7 +67,6 @@ export class PasswordRecoveryPage {
           this.messageComponent.message = errorMessage;
           this.messageComponent.setOpen(true);
         }
-
       }
     } catch (error) {
       this.messageComponent.header = 'Error';
@@ -75,7 +76,7 @@ export class PasswordRecoveryPage {
     }
   }
 
-  doCancel(){
+  doCancel() {
     this.router.navigate(['/welcome']);
   }
 }

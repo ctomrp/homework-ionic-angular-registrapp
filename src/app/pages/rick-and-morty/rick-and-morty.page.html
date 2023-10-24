@@ -2,7 +2,11 @@
 
 <ion-content>
   <div class="btn">
-    <app-button [type]="'submit'" [label]="'volver'" (onClick)="doBack()"></app-button>
+    <app-button
+      [type]="'submit'"
+      [label]="'volver'"
+      (onClick)="doBack()"
+    ></app-button>
   </div>
   <ion-card *ngFor="let character of characters">
     <ion-card-header>

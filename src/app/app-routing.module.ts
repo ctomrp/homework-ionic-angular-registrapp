@@ -1,41 +1,52 @@
+import { AuthGuard } from './auth.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'welcome',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'welcome',
-    loadChildren: () => import('./pages/welcome/welcome.module').then( m => m.WelcomePageModule)
+    loadChildren: () =>
+      import('./pages/welcome/welcome.module').then((m) => m.WelcomePageModule),
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () =>
+      import('./pages/login/login.module').then((m) => m.LoginPageModule),
   },
   {
     path: 'password-recovery',
-    loadChildren: () => import('./pages/password-recovery/password-recovery.module').then( m => m.PasswordRecoveryPageModule)
+    loadChildren: () =>
+      import('./pages/password-recovery/password-recovery.module').then(
+        (m) => m.PasswordRecoveryPageModule
+      ),
   },
   {
     path: 'success-login/:nombre',
-    loadChildren: () => import('./pages/success-login/success-login.module').then( m => m.SuccessLoginPageModule),
-    canActivate: [AuthGuard]
+    loadChildren: () =>
+      import('./pages/success-login/success-login.module').then(
+        (m) => m.SuccessLoginPageModule
+      ),
+    canActivate: [AuthGuard],
   },
   {
     path: 'rick-and-morty',
-    loadChildren: () => import('./pages/rick-and-morty/rick-and-morty.module').then( m => m.RickAndMortyPageModule),
-    canActivate: [AuthGuard]
+    loadChildren: () =>
+      import('./pages/rick-and-morty/rick-and-morty.module').then(
+        (m) => m.RickAndMortyPageModule
+      ),
+    canActivate: [AuthGuard],
   },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

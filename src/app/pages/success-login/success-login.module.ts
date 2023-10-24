@@ -1,13 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
-import { SuccessLoginPageRoutingModule } from './success-login-routing.module';
-
-import { SuccessLoginPage } from './success-login.page';
+import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { SuccessLoginPage } from './success-login.page';
+import { SuccessLoginPageRoutingModule } from './success-login-routing.module';
 
 @NgModule({
   imports: [
@@ -15,8 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     IonicModule,
     SuccessLoginPageRoutingModule,
-    SharedModule
+    SharedModule,
   ],
-  declarations: [SuccessLoginPage]
+  declarations: [SuccessLoginPage],
 })
 export class SuccessLoginPageModule {}

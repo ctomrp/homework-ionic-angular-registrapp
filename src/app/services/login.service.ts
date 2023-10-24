@@ -1,20 +1,16 @@
-import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginService {
-
-  //se cambio el constructor a publico para utilizarlo en spec
-  constructor(public afAuth: AngularFireAuth) { }
+  constructor(public afAuth: AngularFireAuth) {}
 
   getAuthState(): Observable<boolean> {
-    return this.afAuth.authState.pipe(
-      map(user => !!user)
-    );
+    return this.afAuth.authState.pipe(map((user) => !!user));
   }
 
   async signIn(username: string, password: string) {
@@ -47,5 +43,4 @@ export class LoginService {
       return 'Error al recuperar la contraseña.';
     }
   }
-
 }

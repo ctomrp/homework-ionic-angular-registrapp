@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LoginService } from 'src/app/services/login.service';
+import { MessageComponent } from 'src/app/components/message/message.component';
+import { PasswordRecoveryPage } from './password-recovery.page';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PasswordRecoveryPage } from './password-recovery.page';
-import { MessageComponent } from 'src/app/components/message/message.component';
-import { LoginService } from 'src/app/services/login.service';
 
 describe('PasswordRecoveryPage', () => {
   let component: PasswordRecoveryPage;
@@ -13,7 +13,9 @@ describe('PasswordRecoveryPage', () => {
 
   beforeEach(() => {
     const routerMock = jasmine.createSpyObj('Router', ['navigate']);
-    const loginServiceMock = jasmine.createSpyObj('LoginService', ['recoverPassword']);
+    const loginServiceMock = jasmine.createSpyObj('LoginService', [
+      'recoverPassword',
+    ]);
 
     TestBed.configureTestingModule({
       declarations: [PasswordRecoveryPage],
@@ -27,40 +29,46 @@ describe('PasswordRecoveryPage', () => {
     fixture = TestBed.createComponent(PasswordRecoveryPage);
     component = fixture.componentInstance;
     routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
-    loginServiceSpy = TestBed.inject(LoginService) as jasmine.SpyObj<LoginService>;
+    loginServiceSpy = TestBed.inject(
+      LoginService
+    ) as jasmine.SpyObj<LoginService>;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-it('should reset form and isSubmitted on ionViewWillEnter', () => {
-  component.passwordRecoveryForm.setValue({ id: null, email: 'cr.rico@duocuc.cl' });
-  component.isSubmitted = true;
+  it('should reset form and isSubmitted on ionViewWillEnter', () => {
+    component.passwordRecoveryForm.setValue({
+      id: null,
+      email: 'cr.rico@duocuc.cl',
+    });
+    component.isSubmitted = true;
 
-  component.ionViewWillEnter();
+    component.ionViewWillEnter();
 
-  expect(component.passwordRecoveryForm.value).toEqual({ email: null, id: null });
-  expect(component.isSubmitted).toBe(false);
-});
+    expect(component.passwordRecoveryForm.value).toEqual({
+      email: null,
+      id: null,
+    });
+    expect(component.isSubmitted).toBe(false);
+  });
 
+  it('should call recoverPassword and navigate to login on valid form submission', async () => {
+    const email = 'cr.rico@duocuc.cl';
+    loginServiceSpy.recoverPassword.and.resolveTo(null);
+    component.messageComponent = {
+      header: '',
+      message: '',
+      setOpen: jasmine.createSpy(),
+    } as unknown as MessageComponent;
 
-it('should call recoverPassword and navigate to login on valid form submission', async () => {
-  const email = 'cr.rico@duocuc.cl';
-  loginServiceSpy.recoverPassword.and.resolveTo(null);
-  component.messageComponent = {
-    header: '',
-    message: '',
-    setOpen: jasmine.createSpy(),
-  } as unknown as MessageComponent;
-  
-  component.passwordRecoveryForm.patchValue({ email });
-  await component.doEnter();
+    component.passwordRecoveryForm.patchValue({ email });
+    await component.doEnter();
 
-  expect(loginServiceSpy.recoverPassword).toHaveBeenCalledWith(email);
-  expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
-});
-
+    expect(loginServiceSpy.recoverPassword).toHaveBeenCalledWith(email);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
+  });
 
   it('should show an error message on invalid form submission', async () => {
     component.passwordRecoveryForm.setErrors({ someError: true });

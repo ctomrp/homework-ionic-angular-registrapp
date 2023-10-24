@@ -1,8 +1,8 @@
-import { TestBed } from '@angular/core/testing';
 import { AsistenciaService } from './asistencia.service';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment';
+import { TestBed } from '@angular/core/testing';
 
 describe('AsistenciaService', () => {
   let service: AsistenciaService;

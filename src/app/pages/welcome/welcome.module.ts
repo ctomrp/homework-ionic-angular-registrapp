@@ -1,13 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
-import { WelcomePageRoutingModule } from './welcome-routing.module';
-
-import { WelcomePage } from './welcome.page';
+import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { WelcomePage } from './welcome.page';
+import { WelcomePageRoutingModule } from './welcome-routing.module';
 
 @NgModule({
   imports: [
@@ -15,8 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     IonicModule,
     WelcomePageRoutingModule,
-    SharedModule
+    SharedModule,
   ],
-  declarations: [WelcomePage]
+  declarations: [WelcomePage],
 })
 export class WelcomePageModule {}

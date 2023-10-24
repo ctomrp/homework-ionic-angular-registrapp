@@ -5,9 +5,8 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './title.component.html',
   styleUrls: ['./title.component.scss'],
 })
-export class TitleComponent  implements OnInit {
-
-  constructor() { }
+export class TitleComponent implements OnInit {
+  constructor() {}
 
   ngOnInit() {}
 

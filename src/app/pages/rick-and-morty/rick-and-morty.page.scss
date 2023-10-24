@@ -1,15 +1,15 @@
 ion-item {
-    --padding-start: 0;
-  }
+  --padding-start: 0;
+}
 
-app-button{
+app-button {
   position: fixed;
   bottom: 0;
   margin: 32px;
   z-index: 2;
 }
 
-.btn{
+.btn {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;

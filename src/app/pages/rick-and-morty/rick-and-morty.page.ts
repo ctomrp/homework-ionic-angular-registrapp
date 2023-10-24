@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RickAndMortyService } from 'src/app/services/rick-and-morty.service';
 import { LoadingController, NavController } from '@ionic/angular';
+import { RickAndMortyService } from 'src/app/services/rick-and-morty.service';
 
 @Component({
   selector: 'app-rick-and-morty',
@@ -8,20 +8,19 @@ import { LoadingController, NavController } from '@ionic/angular';
   styleUrls: ['./rick-and-morty.page.scss'],
 })
 export class RickAndMortyPage implements OnInit {
-
   characters: any;
 
   constructor(
     private ramService: RickAndMortyService,
     private navCtrl: NavController,
-    private loadingCtrl: LoadingController,
-  ) { }
+    private loadingCtrl: LoadingController
+  ) {}
 
-  ngOnInit() { 
+  ngOnInit() {
     this.getList();
   }
 
-  async getList(){
+  async getList() {
     const loading = await this.loadingCtrl.create({
       message: 'Conectando...',
     });
@@ -36,8 +35,8 @@ export class RickAndMortyPage implements OnInit {
       await loading.dismiss();
     }
   }
-  
-  doBack(){
-    this.navCtrl.pop()
+
+  doBack() {
+    this.navCtrl.pop();
   }
 }

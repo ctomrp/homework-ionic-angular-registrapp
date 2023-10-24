@@ -1,12 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
-import { RickAndMortyPageRoutingModule } from './rick-and-morty-routing.module';
-
+import { NgModule } from '@angular/core';
 import { RickAndMortyPage } from './rick-and-morty.page';
+import { RickAndMortyPageRoutingModule } from './rick-and-morty-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
@@ -17,6 +14,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     RickAndMortyPageRoutingModule,
     SharedModule,
   ],
-  declarations: [RickAndMortyPage]
+  declarations: [RickAndMortyPage],
 })
 export class RickAndMortyPageModule {}

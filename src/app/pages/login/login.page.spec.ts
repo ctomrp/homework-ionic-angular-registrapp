@@ -1,23 +1,29 @@
+import { AngularFireModule } from '@angular/fire/compat';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from 'src/environments/environment';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginPage } from './login.page';
 
-describe('WelcomePage', () => {
+describe('LoginPage', () => {
   let component: LoginPage;
   let fixture: ComponentFixture<LoginPage>;
 
-  beforeEach((() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [LoginPage],
-      imports: [AngularFireAuthModule],
-    })
+      imports: [
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        FormsModule,
+        ReactiveFormsModule,
+      ],
+      providers: [FormBuilder],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(LoginPage);
     component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
-

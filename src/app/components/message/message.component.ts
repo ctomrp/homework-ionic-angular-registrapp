@@ -5,17 +5,15 @@ import { Component, Input } from '@angular/core';
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss'],
 })
-export class MessageComponent  {
-
+export class MessageComponent {
   @Input() header: string = 'header';
   @Input() message: string = 'message';
   public alertButtons = ['OK'];
-  constructor() { }
+  constructor() {}
 
   isAlertOpen = false;
 
   setOpen(isOpen: boolean) {
     this.isAlertOpen = isOpen;
   }
-
 }

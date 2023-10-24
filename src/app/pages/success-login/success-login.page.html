@@ -1,26 +1,45 @@
 <app-title [title]="'Bienvenido'"></app-title>
 
 <ion-content [fullscreen]="true">
-    <app-title-image *ngIf="!scanActive"/>
-    <div class="body"*ngIf="!scanActive">
-        <h1>Bienvenido {{alumno}}</h1>
-        <div class="btnGroup">
-          <div>
-              <app-button [type]="'button'" [label]="'capturar qr'" (onClick)="doEnter()"></app-button>
-          </div>
-          <div>
-              <app-button [type]="'button'" [label]="'consultar api'" (onClick)="doEnterApi()"></app-button>
-          </div>
-          <div>
-              <app-button [type]="'button'" [style]="'cancel'" [label]="'cerrar sesión'" (onClick)="doCancel()"></app-button>
-          </div>
-        </div>
+  <app-title-image *ngIf="!scanActive" />
+  <div class="body" *ngIf="!scanActive">
+    <h1>Bienvenido {{alumno}}</h1>
+    <div class="btnGroup">
+      <div>
+        <app-button
+          [type]="'button'"
+          [label]="'capturar qr'"
+          (onClick)="doEnter()"
+        ></app-button>
+      </div>
+      <div>
+        <app-button
+          [type]="'button'"
+          [label]="'consultar api'"
+          (onClick)="doEnterApi()"
+        ></app-button>
+      </div>
+      <div>
+        <app-button
+          [type]="'button'"
+          [style]="'cancel'"
+          [label]="'cerrar sesión'"
+          (onClick)="doCancel()"
+        ></app-button>
+      </div>
     </div>
-    <h1 *ngIf="scanActive" class="qr-title">Enfoque el código QR</h1>
-    <div class="scan-box" *ngIf="scanActive"></div>
-    <div class="btnCancel">
-        <app-button [type]="'button'" [style]="'cancel'" [label]="'Cancelar'" (onClick)="stopScan()" *ngIf="scanActive"></app-button>
-    </div>    
+  </div>
+  <h1 *ngIf="scanActive" class="qr-title">Enfoque el código QR</h1>
+  <div class="scan-box" *ngIf="scanActive"></div>
+  <div class="btnCancel">
+    <app-button
+      [type]="'button'"
+      [style]="'cancel'"
+      [label]="'Cancelar'"
+      (onClick)="stopScan()"
+      *ngIf="scanActive"
+    ></app-button>
+  </div>
 </ion-content>
 <app-message></app-message>
 <app-footer></app-footer>

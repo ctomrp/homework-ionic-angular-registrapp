@@ -1,21 +1,21 @@
 ion-title {
-    position: relative;
-    animation: slideTitle 3s linear infinite;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    z-index: 1;
-  }
-  
-  @keyframes slideTitle {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
+  position: relative;
+  animation: slideTitle 3s linear infinite;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  z-index: 1;
+}
 
-ion-img{
+@keyframes slideTitle {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+ion-img {
   width: 42px;
   height: auto;
   box-sizing: border-box;

@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RickAndMortyService } from './rick-and-morty.service';
+import { TestBed } from '@angular/core/testing';
 
 describe('RickAndMortyService', () => {
   let service: RickAndMortyService;
@@ -29,9 +29,9 @@ describe('RickAndMortyService', () => {
       results: [
         {
           id: 1,
-          name: 'Rick Sanchez'
-        }
-      ]
+          name: 'Rick Sanchez',
+        },
+      ],
     };
 
     service.getCharacters().subscribe((data) => {

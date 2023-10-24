@@ -1,21 +1,20 @@
 ion-button {
-    --padding-top: 15px;
-    --padding-bottom: 15px;
-    font-weight: bold;
-    color: #00263e;
-    // filter: drop-shadow(0px 2px 15px rgba(0, 0, 0, 0.8));
-    
-    &.default {
-      --background: #FFB800;
-      filter: drop-shadow(0px 0px 2px #00263e);
-    }
-  
-    &.cancel {
-      --background: #FFFFFF;
-      filter: drop-shadow(0px 0px 2px #1A1A1A);
-    }
+  --padding-top: 15px;
+  --padding-bottom: 15px;
+  font-weight: bold;
+  color: #00263e;
+
+  &.default {
+    --background: #ffb800;
+    filter: drop-shadow(0px 0px 2px #00263e);
   }
 
-  .label{
-    text-transform: uppercase;
+  &.cancel {
+    --background: #ffffff;
+    filter: drop-shadow(0px 0px 2px #1a1a1a);
   }
+}
+
+.label {
+  text-transform: uppercase;
+}

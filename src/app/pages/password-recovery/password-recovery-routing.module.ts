@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
 import { PasswordRecoveryPage } from './password-recovery.page';
+import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
     path: '',
-    component: PasswordRecoveryPage
-  }
+    component: PasswordRecoveryPage,
+  },
 ];
 
 @NgModule({

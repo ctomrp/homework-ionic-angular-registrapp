@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
 import { TitleImageComponent } from './title-image.component';
 
 describe('TitleImageComponent', () => {
@@ -9,8 +8,8 @@ describe('TitleImageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TitleImageComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [TitleImageComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TitleImageComponent);

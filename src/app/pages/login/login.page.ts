@@ -1,10 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-import { MessageComponent } from '../../components/message/message.component';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
+import { MessageComponent } from '../../components/message/message.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +24,6 @@ export class LoginPage {
     private fb: FormBuilder,
     private router: Router,
     private loadingCtrl: LoadingController,
-    private afAuth: AngularFireAuth,
     private loginService: LoginService
   ) {}
 
@@ -40,7 +38,6 @@ export class LoginPage {
     this.isSubmitted = true;
     await this.doEnter();
   }
-  
 
   doCancel() {
     this.router.navigate(['/welcome']);
@@ -65,7 +62,6 @@ export class LoginPage {
           message: 'Conectando...',
         });
         await loading.present();
-
 
         const errorMessage = await this.loginService.signIn(username, password);
 
