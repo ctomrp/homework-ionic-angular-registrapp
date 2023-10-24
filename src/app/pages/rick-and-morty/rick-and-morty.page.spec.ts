@@ -36,7 +36,7 @@ describe('RickAndMortyPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate back', () => {
+  it('debe navegar hacia atrás', () => {
     component.doBack();
     expect(navCtrl.pop).toHaveBeenCalled();
   });

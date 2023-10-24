@@ -24,7 +24,7 @@ describe('RickAndMortyService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should retrieve characters from the API via GET', () => {
+  it('debería recuperar caracteres de la API a través de GET', () => {
     const mockResponse = {
       results: [
         {
