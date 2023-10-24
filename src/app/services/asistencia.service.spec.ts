@@ -23,7 +23,7 @@ describe('AsistenciaService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should store attendance in Firestore', () => {
+  it('debe registrar asistencia en Firestore', () => {
     const mockAsistencia = {
       date: new Date(),
       alumno: 'juanito arcoiris',
